@@ -1,5 +1,4 @@
-<button *ngIf="isComputerGame"  (click)=isComputer()>Play against Human</button>
-<button *ngIf="!isComputerGame" (click)=isComputer()>Play against Computer</button>
+<button (click)=isComputer()>{{changeGamePlay}}</button>
 
 
 <h1>This is {{whatGame}}</h1>
@@ -8,11 +7,7 @@
 
 
     <button  (click)=startGame()>New Game</button>
-
-    <div class="cell" *ngFor="let cell of origBoard; let i = index" (click)="turnClick(i)">
-       <app-cell  [value]="cell" > </app-cell>
-    </div>
-
+    <app-cell  class="cell"  [value]="cell" *ngFor="let cell of origBoard; let i = index" (click)="clickOn ? turnClick(i) : null"> </app-cell>
     <h2 class="endgame" *ngIf="endGame">
         {{ winner }}
     </h2>

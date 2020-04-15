@@ -6,12 +6,14 @@ import {Component, OnInit, Input, Output, EventEmitter, HostListener} from '@ang
   styleUrls: ['./cell.component.css']
 })
 export class CellComponent implements OnInit {
-  @Input() value: null;
-  //@Output('userClick') click = new EventEmitter<string>();
+  @Input() value: string[];
 
-  //@HostListener('click')
+  // @Output('turnClick') click = new EventEmitter<string>();
+  // //@Output() public click: EventEmitter<any> = new EventEmitter();
+
+  // @HostListener('click')
   // turnClick() {
-  //   this.click.emit('');
+  //   this.click.emit();
   // }
   constructor() { }
 

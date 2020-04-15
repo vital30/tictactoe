@@ -24,9 +24,11 @@ export class HomeComponent implements OnInit {
       [2,4,6]
   ];
   whatGame ='Game with Computer';
+  changeGamePlay ='Play with Human';
   isComputerGame:boolean = true;
   bgColor = '';
   @ViewChildren(CellComponent, { read: ElementRef }) cells: QueryList<any>;
+  clickOn: boolean = true;
 
 
   xIsNext: boolean;
@@ -42,6 +44,7 @@ export class HomeComponent implements OnInit {
   isComputer(){
     this.isComputerGame = !this.isComputerGame;
     this.isComputerGame === false ?  this.whatGame = "Game with Human" :  this.whatGame = "Game with Computer";
+    this.isComputerGame === true ?  this.changeGamePlay = "Play with Human" :  this.changeGamePlay = "Play with Computer";
     this.startGame();
   }
 
@@ -49,6 +52,7 @@ export class HomeComponent implements OnInit {
     this.endGame = false;
     this.origBoard = Array.from(Array(9).keys());
     this.xIsNext = true;
+    this.clickOn = true;
   }
 
   turnClick(square:number){
@@ -102,9 +106,10 @@ export class HomeComponent implements OnInit {
 
 gameOver(winInfo){
     for(let index of this.WinCombos[winInfo.index]){
-      this.cells['_results'][index].nativeElement.parentElement.style.backgroundColor=
+      this.cells['_results'][index].nativeElement.style.backgroundColor=
            winInfo.player==this.huPlayer?"blue":"red";
     }
+    this.clickOn = false;
     if(this.isComputerGame){
       this.declareWinner(winInfo.player==this.huPlayer?"You won": "Computer won");
     }else{
@@ -128,8 +133,9 @@ bestSpot(){
 checkTie(){
   if(this.emptyCells().length == 0){
       for(var i=0; i< this.cells.length; i++){
-        this.cells['_results'][i].nativeElement.parentElement.style.backgroundColor="green"
+        this.cells['_results'][i].nativeElement.style.backgroundColor="green"
       }
+      this.clickOn = false;
       this.declareWinner("Tie Game!");
       return true;
   }
@@ -197,7 +203,10 @@ miniMax(board, player){
         this.origBoard.splice(idx, 1, this.player);
       }
       this.turn(idx, this.player);
-      this.checkTie();
+      if(!this.endGame){
+        this.checkTie();
+      }
+      
       this.xIsNext = !this.xIsNext;
     }
   }
