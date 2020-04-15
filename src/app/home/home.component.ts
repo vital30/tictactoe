@@ -134,8 +134,10 @@ bestSpot(){
 
 checkTie(){
   if(this.emptyCells().length == 0){
-      for(var i=0; i< this.cells.length; i++){
-        this.cells['_results'][i].nativeElement.style.backgroundColor="green"
+      for(let i=0; i< this.cells.length; i++){
+        setTimeout(  () =>{
+          this.cells['_results'][i].nativeElement.classList.add("green");
+        },0);
       }
       this.clickOn = false;
       this.declareWinner("Tie Game!");
@@ -156,7 +158,7 @@ miniMax(board, player){
   }
 
   var moves = [];
-  for(var i =0; i < availableSpots.length; i++){
+  for(let i =0; i < availableSpots.length; i++){
       var move = {};
       move['index'] = board[availableSpots[i]];
       board[availableSpots[i]] = player;
@@ -175,7 +177,7 @@ miniMax(board, player){
       var bestMove;
       if(player === this.aiPlayer){
           var bestScore = -10000;
-          for(var i = 0; i < moves.length; i++) {
+          for(let i = 0; i < moves.length; i++) {
               if(moves[i].score > bestScore){
                   bestScore = moves[i].score;
                   bestMove = i;
