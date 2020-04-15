@@ -7,7 +7,8 @@
 
 
     <button  (click)=startGame()>New Game</button>
-    <app-cell  class="cell"  [value]="cell" *ngFor="let cell of origBoard; let i = index" (click)="clickOn ? turnClick(i) : null"> </app-cell>
+    
+    <app-cell  class="cell {{cell.class}}"  [value]="cell" *ngFor="let cell of origBoard; let i = index" (click)="clickOn ? turnClick(i) : null"> </app-cell>
     <h2 class="endgame" *ngIf="endGame">
         {{ winner }}
     </h2>

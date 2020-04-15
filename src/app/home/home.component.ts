@@ -106,8 +106,10 @@ export class HomeComponent implements OnInit {
 
 gameOver(winInfo){
     for(let index of this.WinCombos[winInfo.index]){
-      this.cells['_results'][index].nativeElement.style.backgroundColor=
-           winInfo.player==this.huPlayer?"blue":"red";
+      let setClass = winInfo.player==this.huPlayer? "blue":"red";
+      setTimeout(  () =>{
+        this.cells['_results'][index].nativeElement.classList.add(setClass);
+      },0);
     }
     this.clickOn = false;
     if(this.isComputerGame){
